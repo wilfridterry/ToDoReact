@@ -4,12 +4,21 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Checkbox from "@mui/material/Checkbox";
 import ListItemText from "@mui/material/ListItemText";
-import { ListSubheader } from "@mui/material";
+import StarIcon from '@mui/icons-material/Star';
+
 
 export default function ListItemTask({task, onCheckTask}) {
     const {id, priority, content, status} = task;
 
     const labelId = `checkbox-list-label-${id}`;
+
+    const priorityClasses = {
+      low: 'primary',
+      medium: 'success',
+      high: 'secondary'
+    };
+
+    const priorityClass = priorityClasses[priority];
 
     return (
         <ListItem
@@ -30,6 +39,9 @@ export default function ListItemTask({task, onCheckTask}) {
                 />
               </ListItemIcon>
               <ListItemText id={labelId} primary={content} />
+              <ListItemIcon>
+                <StarIcon color={priorityClass}/>
+              </ListItemIcon>
             </ListItemButton>
         </ListItem>
     );

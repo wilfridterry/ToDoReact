@@ -14,6 +14,8 @@ const darkTheme = createTheme({
 });
 
 class App extends Component {
+  #increment = 4;
+
   constructor(props) {  
     super(props);
 
@@ -22,19 +24,19 @@ class App extends Component {
         {
           "id": 1,
           "priority": "low",
-          "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error ad voluptatem ab possimus necessitatibus eligendi repudiandae culpa reprehenderit, nisi assumenda, blanditiis odio? A fuga, quam iusto optio enim ut repellendus!",
+          "content": "Lorem ipsum, dolorassumenda, blanditiis oepellendus!",
           "status": true
         },
         {
           "id": 2,
           "priority": "medium",
-          "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error ad voluptatem ab possimus necessitatibus eligendi repudiandae culpa reprehenderit, nisi assumenda, blanditiis odio? A fuga, quam iusto optio enim ut repellendus!",
+          "content": "Lorem ipsum, dolor sit amet consectetur adipisicing eli!",
           "status": false
         },
         {
-          "id": 3,
+          "id": 3,  
           "priority": "high",
-          "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error ad voluptatem ab possimus necessitatibus eligendi repudiandae culpa reprehenderit, nisi assumenda, blanditiis odio? A fuga, quam iusto optio enim ut repellendus!",
+          "content": "Loi assumenda, blanditiis odio? A fuga, quam iusto optio enim ut repellendus!",
           "status": false
         },
       ],
@@ -46,13 +48,22 @@ class App extends Component {
     this.setState({filter});
   }
 
-  handleSubmitFormAdd({priority, dueDate, content}) {
-    // const tasks = this.state.tasks.slice();
+  handleSubmit = (priority, content) => {
 
-    
-    // this.setState(state => {
+    this.setState(state => {
+      const tasks = state.tasks.slice();
 
-    // });
+      tasks.push({
+        id: this.#increment,
+        priority: priority,
+        content: content,
+        status: false
+      });
+
+      return {tasks: tasks};
+    });
+
+    this.#increment += 1;
   }
 
   handleCheckTask = (id) => {
@@ -96,7 +107,7 @@ class App extends Component {
               <ListTasks tasks={tasksFiltered} onCheckTask={this.handleCheckTask}/>
             </Grid>
             <Grid item xs={6}>
-              <AddForm/>
+              <AddForm onSubmit={this.handleSubmit}/>
             </Grid>
           </Grid>
         </Container>
